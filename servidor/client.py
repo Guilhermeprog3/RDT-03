@@ -22,7 +22,7 @@ def start_client(ip_entry, port_entry, expression_entry, text_widget, simulate_e
     error_simulated = False  
 
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-        packet = make_pkt(seqnum, expression)  # Cria o pacote inicial
+        packet = make_pkt(seqnum, expression) 
         ack_received = False
 
         while not ack_received:

@@ -8,14 +8,13 @@ from has1 import has_seq1
 from deliverD import deliver_data
 from makeAck import make_ack
 
-# Variáveis globais
 simulate_loss = False
 loss_simulated = False
 
 def simulate_packet_loss(text_widget):
     global simulate_loss, loss_simulated
     simulate_loss = True
-    loss_simulated = False 
+    loss_simulated = False
     text_widget.insert(tk.END, "Simulação de perda de pacote iniciada.\n", "info")
 
 def rdt_receiver(server_address, text_widget):

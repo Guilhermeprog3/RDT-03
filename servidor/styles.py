@@ -2,42 +2,44 @@ import tkinter as tk
 from tkinter import scrolledtext, Frame, font
 from start import start_server
 from client import start_client
-from erro import simulate_error
 from server import simulate_packet_loss
-# Função para mostrar o frame do servidor
+
+# Chamada do Servidor
 def show_server_frame():
     client_frame.pack_forget()
     server_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-# Função para mostrar o frame do cliente
+# Chamada do Cliente
 def show_client_frame():
     server_frame.pack_forget()
     client_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-root = tk.Tk()
-root.title("Calculadora Remota - Cliente e Servidor")
+janela = tk.Tk()
+janela.title("Calculadora Remota - Cliente e Servidor")
 
-# Estilos e Configurações Visuais
+# Estilos
 bg_color = "#34495e"
 fg_color = "#ecf0f1"
 btn_color = "#3498db"
 font_style = font.Font(family="Arial", size=12, weight="bold")
 
-root.configure(bg=bg_color)
+janela.configure(bg=bg_color)
 
-# Frame principal para alternar entre servidor e cliente
-main_frame = Frame(root, bg=bg_color)
-main_frame.pack(fill="both", expand=True, pady=10)
+# Janela Principal
+
+Janela_Main = Frame(janela, bg=bg_color)
+Janela_Main.pack(fill="both", expand=True, pady=10)
 
 # Botões para alternar entre cliente e servidor
-btn_server = tk.Button(main_frame, text="Servidor", command=show_server_frame, font=font_style, bg=btn_color, fg=fg_color)
+
+btn_server = tk.Button(Janela_Main, text="Servidor", command=show_server_frame, font=font_style, bg=btn_color, fg=fg_color)
 btn_server.pack(side="left", padx=20)
 
-btn_client = tk.Button(main_frame, text="Cliente", command=show_client_frame, font=font_style, bg=btn_color, fg=fg_color)
+btn_client = tk.Button(Janela_Main, text="Cliente", command=show_client_frame, font=font_style, bg=btn_color, fg=fg_color)
 btn_client.pack(side="right", padx=20)
 
-# Frame do Servidor
-server_frame = Frame(root, bg=bg_color)
+# Janela do Servidor
+server_frame = Frame(janela, bg=bg_color)
 
 server_ip_label = tk.Label(server_frame, text="IP do Servidor:", bg=bg_color, fg=fg_color, font=font_style)
 server_ip_label.pack(pady=5)
@@ -57,16 +59,16 @@ server_button.pack(pady=10)
 server_text_area = scrolledtext.ScrolledText(server_frame, wrap=tk.WORD, width=50, height=10, bg=fg_color, fg=bg_color, font=font_style)
 server_text_area.pack(pady=10)
 
-# Botões de Simulação de Erros no Servidor
+# Botâo de Simulação de Erro
 error_frame_server = Frame(server_frame, bg=bg_color)
 error_frame_server.pack(pady=10)
 
-# Botão para simular perda de pacote
+# Botão para simular perda de Pacote
 loss_button = tk.Button(error_frame_server, text="Simular Perda de Pacote", command=lambda: simulate_packet_loss(server_text_area), font=font_style, bg=btn_color, fg=fg_color)
 loss_button.grid(row=0, column=0, padx=5, pady=5)
 
-# Frame do Cliente
-client_frame = Frame(root, bg=bg_color)
+# Janela do Cliente
+client_frame = Frame(janela, bg=bg_color)
 
 client_ip_label = tk.Label(client_frame, text="IP do Servidor:", bg=bg_color, fg=fg_color, font=font_style)
 client_ip_label.pack(pady=5)
@@ -92,12 +94,12 @@ send_button.pack(pady=10)
 client_text_area = scrolledtext.ScrolledText(client_frame, wrap=tk.WORD, width=50, height=10, bg=fg_color, fg=bg_color, font=font_style)
 client_text_area.pack(pady=10)
 
-# Botões de Simulação de Erros no Cliente
+# Botão de Simulação de Erro 
 error_frame_client = Frame(client_frame, bg=bg_color)
 error_frame_client.pack(pady=10)
 
 # Botão para simular pacote corrompido
-corrupt_button = tk.Button(error_frame_client, text="Simular Pacote Corrompido", command=lambda: simulate_error('corrupt', client_ip_entry, client_port_entry, expression_entry, client_text_area), font=font_style, bg=btn_color, fg=fg_color)
+corrupt_button = tk.Button(error_frame_client, text="Simular Pacote Corrompido", command=lambda: start_client( client_ip_entry, client_port_entry, expression_entry, client_text_area,simulate_error="corrupt"), font=font_style, bg=btn_color, fg=fg_color)
 corrupt_button.grid(row=0, column=0, padx=5, pady=5)
 
-root.mainloop()
+janela.mainloop()
